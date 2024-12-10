@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snake Game</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    canvas {
+      border: 1px solid white;
+      display: none; /* Initially hidden */
+    }
+    #menu, #game-over {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #menu, #game-over {
+      color: white;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Menu -->
+  <div id="menu">
+    <h1>Snake Game</h1>
+    <button id="play">Play</button>
+    <button id="exit">Exit</button>
+  </div>
+
+  <!-- Game Canvas -->
+  <canvas width="400" height="400" id="game"></canvas>
+
+  <!-- Game Over Screen -->
+  <div id="game-over" style="display: none;">
+    <h2>Your score is: <span id="score"></span></h2>
+    <button id="play-again">Play Again</button>
+    <button id="exit-2">Exit</button>
+  </div>
+
+  <script>
+    var canvas = document.getElementById('game');
+    var context = canvas.getContext('2d');
+
+    var grid = 16;
+    var count = 0;
+    var points = 0; // Track score
+
+    var snake = {
+      x: 160,
+      y: 160,
+      dx: grid,
+      dy: 0,
+      cells: [],
+      maxCells: 4
+    };
+
+    var apple = {
+      x: 320,
+      y: 320
+    };
+
+    var gameLoop; // Reference to the game loop
+
+    // Get random whole numbers in a specific range
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    // Start game
+    function startGame() {
+      document.getElementById('menu').style.display = 'none';
+      document.getElementById('game-over').style.display = 'none';
+      canvas.style.display = 'block';
+      points = 0; // Reset score
+      snake.x = 160;
+      snake.y = 160;
+      snake.cells = [];
+      snake.maxCells = 4;
+      snake.dx = grid;
+      snake.dy = 0;
+      apple.x = getRandomInt(0, 25) * grid;
+      apple.y = getRandomInt(0, 25) * grid;
+      gameLoop = requestAnimationFrame(loop);
+    }
+
+    // Game Over
+    function gameOver() {
+      cancelAnimationFrame(gameLoop); // Stop game loop
+      document.getElementById('score').innerText = points;
+      canvas.style.display = 'none';
+      document.getElementById('game-over').style.display = 'flex';
+    }
+
+    // Game loop
+    function loop() {
+      gameLoop = requestAnimationFrame(loop);
+
+      if (++count < 4) {
+        return;
+      }
+
+      count = 0;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Move snake
+      snake.x += snake.dx;
+      snake.y += snake.dy;
+
+      // Wrap snake position
+      if (snake.x < 0) {
+        snake.x = canvas.width - grid;
+      } else if (snake.x >= canvas.width) {
+        snake.x = 0;
+      }
+      if (snake.y < 0) {
+        snake.y = canvas.height - grid;
+      } else if (snake.y >= canvas.height) {
+        snake.y = 0;
+      }
+
+      // Track snake cells
+      snake.cells.unshift({ x: snake.x, y: snake.y });
+      if (snake.cells.length > snake.maxCells) {
+        snake.cells.pop();
+      }
+
+      // Draw apple
+      context.fillStyle = 'red';
+      context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+
+      // Draw snake
+      context.fillStyle = 'green';
+      snake.cells.forEach(function (cell, index) {
+        context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+
+        // Snake ate apple
+        if (cell.x === apple.x && cell.y === apple.y) {
+          snake.maxCells++;
+          points++; // Increase score
+          apple.x = getRandomInt(0, 25) * grid;
+          apple.y = getRandomInt(0, 25) * grid;
+        }
+
+        // Check collision with self
+        for (var i = index + 1; i < snake.cells.length; i++) {
+          if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+            gameOver();
+          }
+        }
+      });
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', function (e) {
+      if (e.which === 37 && snake.dx === 0) {
+        snake.dx = -grid;
+        snake.dy = 0;
+      } else if (e.which === 38 && snake.dy === 0) {
+        snake.dy = -grid;
+        snake.dx = 0;
+      } else if (e.which === 39 && snake.dx === 0) {
+        snake.dx = grid;
+        snake.dy = 0;
+      } else if (e.which === 40 && snake.dy === 0) {
+        snake.dy = grid;
+        snake.dx = 0;
+      }
+    });
+
+    // Button events
+    document.getElementById('play').addEventListener('click', startGame);
+    document.getElementById('play-again').addEventListener('click', startGame);
+    document.getElementById('exit').addEventListener('click', function () {
+      window.close(); // Try to close the window (won't work in most browsers)
+    });
+    document.getElementById('exit-2').addEventListener('click', function () {
+      window.close(); // Try to close the window (won't work in most browsers)
+    });
+  </script>
+</body>
+</html>

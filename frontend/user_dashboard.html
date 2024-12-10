@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="bg-white container-fluid">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="rounded-top p-4">
+        <h3 class="text-primary mb-3">Welcome, {{ username }}!</h3>
+        <p>Your account status: <strong>{{ 'Admin' if is_admin else 'User' }}</strong></p>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Your Purchases</h5>
+                        <p class="card-text">View your purchase history and manage your games.</p>
+                        <a href="{{ url_for('purchase_history') }}" class="btn btn-primary">View Purchase History</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Free Games</h5>
+                        <p class="card-text">Discover new free games available for you to play.</p>
+                        <a href="{{ url_for('free_games') }}" class="btn btn-primary">Explore Free Games</a>
+                    </div>
+                </div>
+            </div>
+
+            {% if is_admin %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Admin Dashboard</h5>
+                        <p class="card-text">Manage user accounts and view system activity logs.</p>
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-danger">Go to Admin Dashboard</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>Your Recent Activity</h5>
+                <ul class="list-group">
+                    <li class="list-group-item" id="purchaseHistory"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/purchase_history.js') }}"></script>
+{% endblock %}

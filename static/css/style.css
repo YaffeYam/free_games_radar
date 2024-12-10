@@ -1,0 +1,536 @@
+/********** Template CSS **********/
+:root {
+    --primary: #009CFF;
+    --light: #F3F6F9;
+    --dark: #191C24;
+}
+
+/* For cleaner modal */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/*** Button ***/
+.btn {
+    transition: .5s;
+}
+
+.btn.btn-primary {
+    color: #FFFFFF;
+}
+
+/*** Layout ***/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--light);
+    transition: 0.5s;
+    z-index: 999;
+}
+
+/* Content Styling */
+.content {
+    margin-left: 300px;
+    min-height: 100vh;
+    background: #FFFFFF;
+    transition: 0.5s;
+}
+
+/* For large screens (desktops and tablets in landscape mode) */
+@media (min-width: 992px) {
+    .sidebar {
+        margin-left: 0;
+    }
+
+    .sidebar.open {
+        margin-left: -250px;
+    }
+
+    .content {
+        width: calc(100% - 280px);
+    }
+
+    .content.open {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* For medium and small screens (tablets and below) */
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: -280px;
+    }
+
+    .sidebar.open {
+        margin-left: 0;
+    }
+
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/*** Navbar ***/
+/* Sidebar Navigation Link Styling */
+.sidebar .navbar .navbar-nav .nav-link {
+    padding: 7px 20px;
+    color: var(--dark);
+    font-weight: 500;
+    border-left: 3px solid var(--light);
+    border-radius: 0 30px 30px 0;
+    outline: none;
+}
+
+/* Hover and Active State for Sidebar Links */
+.sidebar .navbar .navbar-nav .nav-link:hover,
+.sidebar .navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+    background: #FFFFFF;
+    border-color: var(--primary);
+}
+
+/* Sidebar Link Icons */
+.sidebar .navbar .navbar-nav .nav-link i {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 40px;
+}
+
+/* Hover/Active State for Sidebar Link Icons */
+.sidebar .navbar .navbar-nav .nav-link:hover i,
+.sidebar .navbar .navbar-nav .nav-link.active i {
+    background: var(--light);
+}
+
+/* Dropdown Arrow Styling in Sidebar */
+.sidebar .navbar .dropdown-toggle::after {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: transform 0.3s ease;
+}
+
+/* Rotated Arrow when Dropdown is Open */
+.sidebar .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+/* Dropdown Item Styling in Sidebar */
+.sidebar .navbar .navbar-nav .dropdown-item {
+    padding-left: 25px;
+    border-radius: 0 30px 30px 0;
+}
+
+/* Content Navbar Links Styling */
+.content .navbar .navbar-nav .nav-link {
+    margin-left: 25px;
+    padding: 12px 0;
+    color: var(--dark);
+    outline: none;
+}
+
+/* Hover and Active State for Content Navbar Links */
+.content .navbar .navbar-nav .nav-link:hover,
+.content .navbar .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+/* Content Navbar Link Icons */
+.content .navbar .navbar-nav .nav-link i,
+.content .navbar .sidebar-toggler {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 40px;
+}
+
+/* Dropdown Arrow in Content Navbar */
+.content .navbar .dropdown-toggle::after {
+    margin-left: 6px;
+    vertical-align: middle;
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: transform 0.3s ease;
+}
+
+/* Rotated Arrow when Dropdown is Open */
+.content .navbar .dropdown-toggle[aria-expanded=true]::after {
+    transform: rotate(-180deg);
+}
+
+/* Mobile Adjustment for Navbar Links */
+@media (max-width: 575.98px) {
+    .content .navbar .navbar-nav .nav-link {
+        margin-left: 15px;
+        padding: 10px 0; /* Adjust padding on smaller screens */
+    }
+}
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #343a40;
+    line-height: 1.6;
+}
+
+/* Header and Main Containers */
+header, main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Headings */
+h1, h2 {
+    margin: 0;
+    color: #333;
+}
+
+/* Button Styles */
+button, .button, .nav-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+}
+
+/* Hover State for Buttons */
+button:hover, .button:hover, .nav-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Active State for Buttons */
+button:active, .button:active, .nav-button:active {
+    transform: scale(0.95);
+}
+
+/* Action Buttons Container Styles */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center buttons vertically */
+    gap: 20px; /* Adjust space between buttons */
+    margin: 20px 0;
+}
+
+/* Responsive adjustments for mobile view */
+@media (max-width: 768px) {
+    body {
+        padding: 0 5px; /* Reduce body padding on smaller screens */
+    }
+    
+    .action-buttons {
+        flex-direction: column; /* Stack action buttons on smaller screens */
+        gap: 10px; /* Reduce gap between stacked buttons */
+    }
+
+    button, .button, .nav-button {
+        padding: 10px 20px; /* Adjust button padding on mobile */
+        font-size: 14px; /* Reduce font size on smaller screens */
+    }
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    color: #495057;
+    margin-top: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="checkbox"] {
+    margin-top: 15px;
+}
+
+/* Container Styles */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Responsive adjustments for the container */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px; /* Reduced padding on smaller screens */
+    }
+}
+
+/* Grid Container Styles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Mobile-first approach for Grid */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Stack items on smaller screens */
+        padding: 10px; /* Reduce padding */
+    }
+}
+
+/* Message Styles */
+.message {
+    margin-top: 15px;
+    font-weight: 500;
+    padding: 10px; /* Added padding for better visibility */
+    border-radius: 5px; /* Added rounded corners for better design */
+}
+
+.message.success {
+    color: #28a745;
+    background-color: #d4edda; /* Light green background for success */
+}
+
+.message.error {
+    color: #dc3545;
+    background-color: #f8d7da; /* Light red background for error */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container, .grid-container {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    button, .button, .nav-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Game Item Styles */
+.game-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 8px; /* Added rounded corners for consistency */
+    transition: box-shadow 0.3s ease; /* Added transition for hover effect */
+}
+
+.game-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow effect on hover */
+}
+
+.game-thumbnail {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Restored border radius for button */
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Added focus effect */
+}
+
+/* Card Styles */
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-footer {
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+/* Selected Image Border */
+.img-thumbnail.selected {
+    border: 2px solid #007bff;
+    transition: border-color 0.3s ease; /* Added transition for smooth effect */
+}
+
+/* Purchase History Item */
+.purchase-history-item {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-history-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background-color: #f9fafb;
+}
+
+/* Text Styling */
+.purchase-history-item p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.purchase-history-item strong {
+    color: #333;
+}
+
+.purchase-history-item span {
+    font-weight: bold;
+}
+
+/* Empty State */
+.grid-container p {
+    font-size: 1.25rem;
+    color: #6b7280;
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 40px 0;
+    margin: 20px 0;
+}
+
+/* Header Styling */
+.page-header {
+    text-align: center;
+    background-color: #3b82f6;
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 5px solid #2563eb;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    padding: 0 20px;
+}
+
+/* Card Header */
+.purchase-history-header {
+    background-color: #f3f4f6;
+    padding: 15px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.purchase-history-header i {
+    color: #3b82f6;
+}
+
+.purchase-history-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.purchase-history-body p {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    color: #4b5563;
+    padding: 5px 0;
+}
+
+.purchase-history-body strong {
+    color: #1f2937;
+}
+

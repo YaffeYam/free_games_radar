@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-primary mb-3">Store</h1>
+
+    <div id="game-list" class="row"> </div>
+</div>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Complete Your Purchase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="payment-form">
+                    <div class="mb-3">
+                        <label for="cardHolderName" class="form-label">Cardholder Name</label>
+                        <input type="text" class="form-control" id="cardHolderName" placeholder="Full Name" required>
+                        <div class="invalid-feedback">Please enter the cardholder name.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="16" required>
+                        <div class="invalid-feedback">Please enter a valid 16-digit card number.</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="expirationDate" class="form-label">Expiration Date</label>
+                            <input type="text" class="form-control" id="expirationDate" placeholder="MM/YY" maxlength="5" required>
+                            <div class="invalid-feedback">Please enter a valid expiration date (MM/YY).</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3" required>
+                            <div class="invalid-feedback">Please enter a valid 3-digit CVV.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Pay Now</button>                    
+                </form>
+                <div id="payment-result" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="games-container"></div>
+<div id="game-details"></div> -->
+
+<script src="{{ url_for('static', filename='js/store.js') }}"></script>
+{% endblock %}
