@@ -22,13 +22,11 @@ def register_routes(app):
     # Route for the homepage
     @app.route('/')
     def index():
-        print("Homepage route accessed.")
         return render_template('index.html')
     
     # Route for handling user login
     @app.route('/login', methods=['GET', 'POST'])
     def login():
-        print("Login route accessed.")
         if request.method == 'POST':
             email = request.form.get('email')
             password = request.form.get('password')
@@ -57,7 +55,6 @@ def register_routes(app):
     # Route for user registration page
     @app.route('/register')
     def register():
-        print("Register route accessed.")
         return render_template('register.html')
     
     # Route for logging out the user and clearing session data
@@ -75,7 +72,6 @@ def register_routes(app):
     # Route for viewing free games, accessible only to logged-in users
     @app.route('/free_games')
     def free_games():
-        print("Free games route accessed.")
         if 'user_id' not in session:
             return redirect('/login')
         
@@ -85,7 +81,6 @@ def register_routes(app):
     # Route for viewing the store, accessible only to logged-in users
     @app.route('/games_store')
     def games_store():
-        print("Games store route accessed.")
         if 'user_id' not in session:
             return redirect('/login')
         user = User.query.get(session['user_id'])
@@ -94,7 +89,6 @@ def register_routes(app):
     # Route for viewing the purchase history, accessible only to logged-in users
     @app.route('/purchase_history')
     def purchase_history():
-        print("Purchase history route accessed.")
         if 'user_id' not in session:
             return redirect('/login')
         user = User.query.get(session['user_id'])
